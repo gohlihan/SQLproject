@@ -42,3 +42,5 @@ https://www.pythontutorial.net/tkinter/
 ### 遇到的问题
 关于销售人员的销售额, 应该直接输入一个销售数据,
 还是应该是直接用Query的方法来统计销售额?
+
+### Change Log

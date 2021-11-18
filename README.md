@@ -18,6 +18,13 @@
 
 [Group project draft.sql](Group%20project%20draft.sql)是之前生成的MySQL, 用作参考
 
+### 参考的教程
+https://www.sqlitetutorial.net/
+
+https://www.sqlitetutorial.net/sqlite-python/
+
+https://www.pythontutorial.net/tkinter/
+
 ### 目前计划
 
 用python + SQLite 完成数据库,

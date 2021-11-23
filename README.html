@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>SQLproject</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="sqlproject">SQLproject</h1>
+<p>管理信息-小组期末作业</p>
+<p><img src="file:////attachment/2021-1118-120723.png" alt="picture 3"></p>
+<h2 id="文件说明">文件说明</h2>
+<p><a href="Main.py">Main.py</a>主要的功能写在这里? tkinter我打算写在这边</p>
+<p><a href="CreatingTables.py">CreatingTables.py</a>创建初始的tables
+<a href="/AddingData.py">AddingData.py</a>是给数据库输入初始数据</p>
+<p><a href="DbFunction.py">DbFunction.py</a>把Query写成python的function,<a href="http://xn--Main-470g7qq91a0y3c1oh.py">然后套用去Main.py</a></p>
+<p><a href="system.db">system.db</a>是这次作业的主要数据库</p>
+<p><a href="testing.sql">testing.sql</a>是写<a href="CreatingTables.py">CreatingTables.py</a>时候的草稿</p>
+<p><a href="Group%20project%20draft.sql">Group project draft.sql</a>是之前生成的MySQL, 用作参考</p>
+<h3 id="参考的教程">参考的教程</h3>
+<p><a href="https://www.sqlitetutorial.net/">https://www.sqlitetutorial.net/</a></p>
+<p><a href="https://www.sqlitetutorial.net/sqlite-python/">https://www.sqlitetutorial.net/sqlite-python/</a></p>
+<p><a href="https://www.pythontutorial.net/tkinter/">https://www.pythontutorial.net/tkinter/</a></p>
+<h3 id="目前计划">目前计划</h3>
+<p>用python + SQLite 完成数据库,
+然后用tkinter制作GUI界面,</p>
+<p>在GUI界面上可以按几个按钮就显示出老师要求的东西</p>
+<h3 id="进度">进度</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> 建立Table</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> 填入数据 (正在进行)(周末前完成数据填写以及总销售额计算方法确定)(手填100价格)</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> 完成老师要求的Query功能</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> 把功能套用到tkinter界面上</li>
+</ul>
+<h3 id="遇到的问题">遇到的问题</h3>
+<p>关于销售人员的销售额, 应该直接输入一个销售数据,
+还是应该是直接用Query的方法来统计销售额?</p>
+<p>总销售额:sum worker_id search in Invoices Shopping_list-price(手填)
+购买新手机最多：count max customs_id search Invoices Shopping_list Item(new phone)-quantity</p>
+<h3 id="change-log">Change Log</h3>
+
+    </body>
+    </html>

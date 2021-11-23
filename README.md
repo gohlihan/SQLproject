@@ -34,7 +34,7 @@ https://www.pythontutorial.net/tkinter/
 
 ### 进度
 - [x] 建立Table 
-- [ ] 填入数据 (正在进行)
+- [ ] 填入数据 (正在进行)(周末前完成数据填写以及总销售额计算方法确定)(手填100价格)
 - [ ] 完成老师要求的Query功能
 - [ ] 把功能套用到tkinter界面上
 
@@ -42,5 +42,8 @@ https://www.pythontutorial.net/tkinter/
 ### 遇到的问题
 关于销售人员的销售额, 应该直接输入一个销售数据,
 还是应该是直接用Query的方法来统计销售额?
+
+总销售额:sum worker_id search in Invoices Shopping_list-price(手填)
+购买新手机最多：count max customs_id search Invoices Shopping_list Item(new phone)-quantity
 
 ### Change Log

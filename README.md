@@ -44,6 +44,10 @@ https://www.pythontutorial.net/tkinter/
 还是应该是直接用Query的方法来统计销售额?
 
 总销售额:sum worker_id search in Invoices Shopping_list-price(手填)
-购买新手机最多：count max customs_id search Invoices Shopping_list Item(new phone)-quantity
+购买新手机最多：count max customs_id search Invoices Shopping_list Item(new phone)-quantity
+
+第一题的做后一句要求的好像是要物流状态?
+manage the delivery process(手动输入运输状态,0=未发货,1=正在途中,2=已收货)
+
 
 ### Change Log

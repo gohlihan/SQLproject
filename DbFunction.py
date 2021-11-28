@@ -1,6 +1,6 @@
 import sqlite3
 
-def add_many(list):
+def show_warehouse_inv(ware_id):
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
     c.execute("insert into")

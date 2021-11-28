@@ -75,6 +75,7 @@ c.executescript('''
     total_price integer,
     city_id integer,
     driver_id integer,
+    shipping_status integer,
     FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
     FOREIGN KEY (shopping_list_id) REFERENCES Shopping_lists (shopping_list_id),
     FOREIGN KEY (city_id) REFERENCES Cities(city_id),

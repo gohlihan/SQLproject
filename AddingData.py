@@ -42,11 +42,11 @@ c.executescript('''
 
     INSERT INTO Warehouses(warehouse_id,city_id,agent_id,item_id,item_name,stock_item_quantity)
     VALUES
-        (1,1,1,1,'NewPhone',1),
-        (2,2,2,2,'OldPhone',2),
-        (3,3,3,3,'NewPhone',3),
-        (4,4,4,4,'OldPhone',4),
-        (5,5,5,5,'NewPhone',5);
+        (1,1,1,1,'NewPhone',10),
+        (2,2,2,2,'OldPhone',20),
+        (3,3,3,1,'NewPhone',30),
+        (4,4,4,2,'OldPhone',40),
+        (5,5,5,1,'NewPhone',50);
 
     
     INSERT INTO Items(item_id,item_name,item_price)

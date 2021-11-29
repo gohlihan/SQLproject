@@ -42,11 +42,11 @@ c.executescript('''
 
     INSERT INTO Warehouses(warehouse_id,city_id,agent_id,item_id,item_name,stock_item_quantity)
     VALUES
-        (1,1,1,1,'NewPhone',1),
-        (2,2,2,2,'OldPhone',2),
-        (3,3,3,3,'NewPhone',3),
-        (4,4,4,4,'OldPhone',4),
-        (5,5,5,5,'NewPhone',5);
+        (1,1,1,1,'NewPhone',10),
+        (2,2,2,2,'OldPhone',20),
+        (3,3,3,1,'NewPhone',30),
+        (4,4,4,2,'OldPhone',40),
+        (5,5,5,1,'NewPhone',50);
 
     
     INSERT INTO Items(item_id,item_name,item_price)
@@ -73,13 +73,13 @@ c.executescript('''
         (5,'William Jhon',5,5);
     
 
-    INSERT INTO Invoices(invoice_id,invoice_date,customer_id,shopping_list_id,total_price,city_id,driver_id)
+    INSERT INTO Invoices(invoice_id,invoice_date,customer_id,shopping_list_id,total_price,city_id,driver_id,shipping_status)
     VALUES
-        (1,'2021/11/11',1,1,100,1,1),
-        (2,'2021/11/11',2,2,100,2,2),
-        (3,'2021/11/11',3,3,100,3,3),
-        (4,'2021/11/11',4,4,100,4,4),
-        (5,'2021/11/11',5,5,100,5,5);
+        (1,'2021/11/11',1,1,100,1,1,2),
+        (2,'2021/11/11',2,2,100,2,2,2),
+        (3,'2021/11/11',3,3,100,3,3,2),
+        (4,'2021/11/11',4,4,100,4,4,1),
+        (5,'2021/11/11',5,5,100,5,5,0);
     
 
     INSERT INTO Drivers(driver_id,driver_name,city_id)

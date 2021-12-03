@@ -75,3 +75,22 @@ def create_invoice(invoice_id,invoice_date,customer_id,shopping_list_id,total_pr
 
     conn.commit()
     conn.close()
+
+
+def show_newphone_customer(): #待改善
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT id, Sum
+    FROM 
+    (SELECT Customers.customer_id AS id, SUM(item_quantity) AS Sum
+    FROM Customers, Invoices, Shopping_lists
+    WHERE Customers.customer_id = Invoices.customer_id 
+    AND Invoices.shopping_list_id = Shopping_lists.shopping_list_id 
+    GROUP BY Customers.customer_id) AS t
+    ORDER BY Sum DESC;
+    '''
+    c.execute(sql)
+    conn.commit()
+    conn.close()
+    

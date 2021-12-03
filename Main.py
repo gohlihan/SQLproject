@@ -20,3 +20,5 @@ from tkinter import *
 #dbf.change_invoice_city(5,3)
 
 #dbf.create_invoice(invoice_id,invoice_date,customer_id,shopping_list_id,total_price,city_id,driver_id,shipping_status)
+
+dbf.show_newphone_customer()

@@ -81,9 +81,9 @@ def show_customer_totalbuy():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
     sql='''
-    SELECT id, Sum
+    SELECT id,name, Sum
     FROM 
-    (SELECT Customers.customer_id AS id, SUM(item_quantity) AS Sum
+    (SELECT Customers.customer_id AS id,Customers.customer_name AS name,SUM(item_quantity) AS Sum
     FROM Customers, Invoices, Shopping_lists
     WHERE Customers.customer_id = Invoices.customer_id 
     AND Invoices.shopping_list_id = Shopping_lists.shopping_list_id 
@@ -92,7 +92,7 @@ def show_customer_totalbuy():
     '''
     c.execute(sql)
     item = c.fetchall()
-    print("(Customer ID,Total bought),"+str(item))
+    print("Show Customer purchases: "+str(item))
     conn.commit()
     conn.close()
     
@@ -101,9 +101,9 @@ def show_newphone_customer():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
     sql='''
-    SELECT id, Sum
+    SELECT id, name, Sum
     FROM 
-    (SELECT Customers.customer_id AS id, SUM(item_quantity) AS Sum
+    (SELECT Customers.customer_id AS id, Customers.customer_name AS name, SUM(item_quantity) AS Sum
     FROM Customers, Invoices, Shopping_lists
     WHERE Customers.customer_id = Invoices.customer_id 
     AND Invoices.shopping_list_id = Shopping_lists.shopping_list_id 
@@ -113,7 +113,7 @@ def show_newphone_customer():
     '''
     c.execute(sql)
     item = c.fetchall()
-    print("(Customer ID,Total New phone bought),"+str(item))
+    print("Show New Phone Customer: "+str(item))
     conn.commit()
     conn.close()
 
@@ -129,7 +129,7 @@ def show_worker_sales():
     '''
     c.execute(sql)
     item = c.fetchall()
-    print(item)
+    print("Show Worker Sales: "+str(item))
     conn.commit()
     conn.close()
 
@@ -162,7 +162,7 @@ def show_agent_sales():
     '''
     c.execute(sql)
     item = c.fetchall()
-    print(item)
+    print("Show Agent Sales: "+str(item))
     conn.commit()
     conn.close()
 

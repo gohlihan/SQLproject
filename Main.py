@@ -33,4 +33,3 @@ from tkinter import *
 
 #dbf.show_agent_sales()
 
-#dbf.show_the_best_agent()

@@ -92,7 +92,7 @@ def show_customer_totalbuy():
     '''
     c.execute(sql)
     item = c.fetchall()
-    print("(Customer ID,Total bought),"+item)
+    print("(Customer ID,Total bought),"+str(item))
     conn.commit()
     conn.close()
     
@@ -113,7 +113,7 @@ def show_newphone_customer():
     '''
     c.execute(sql)
     item = c.fetchall()
-    print("(Customer ID,Total New phone bought),"+item)
+    print("(Customer ID,Total New phone bought),"+str(item))
     conn.commit()
     conn.close()
 

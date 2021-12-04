@@ -92,7 +92,7 @@ def show_customer_totalbuy():
     '''
     c.execute(sql)
     item = c.fetchall()
-    print(item)
+    print("(Customer ID,Total bought),"+item)
     conn.commit()
     conn.close()
     
@@ -113,6 +113,13 @@ def show_newphone_customer():
     '''
     c.execute(sql)
     item = c.fetchall()
-    print(item)
+    print("(Customer ID,Total New phone bought),"+item)
     conn.commit()
     conn.close()
+
+
+def show_the_best_agent():
+    pass
+
+def show_the_best_worker():
+    pass

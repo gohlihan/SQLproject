@@ -25,3 +25,6 @@ from tkinter import *
 
 #dbf.show_newphone_customer()
 
+dbf.show_the_best_agent()
+
+dbf.show_the_best_worker()

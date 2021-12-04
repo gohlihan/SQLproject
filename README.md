@@ -48,6 +48,7 @@ https://www.pythontutorial.net/tkinter/
 
 
 - [ ] 把功能套用到tkinter界面上(全力赶在这周末内完成)
+- [ ] 需要 PPT 和 报告
 
 
 ### 遇到的问题

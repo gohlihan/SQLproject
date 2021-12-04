@@ -119,7 +119,29 @@ def show_newphone_customer():
 
 
 def show_the_best_agent():
-    pass
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT agent_id, agent_name
+    FROM Agents
+    ORDER BY total_sales DESC LIMIT 1
+    '''
+    c.execute(sql)
+    item = c.fetchall()
+    print("(),"+str(item))
+    conn.commit()
+    conn.close()
 
 def show_the_best_worker():
-    pass
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT worker_id, worker_name
+    FROM Workers
+    ORDER BY total_sales DESC LIMIT 1
+    '''
+    c.execute(sql)
+    item = c.fetchall()
+    print("(),"+str(item))
+    conn.commit()
+    conn.close()

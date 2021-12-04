@@ -35,7 +35,7 @@ https://www.pythontutorial.net/tkinter/
 ### 进度
 - [x] 建立Table 
 - [x] 填入数据 (周末前完成数据填写以及总销售额计算方法确定)(手填100价格)
-- [ ] 完成老师要求的Query功能(正在进行)
+- [x] 完成老师要求的Query功能
     
 **要求1**
   - [x] show warehouse inventory
@@ -46,11 +46,11 @@ https://www.pythontutorial.net/tkinter/
 
 
 **要求2**
-  - [ ] 总销售额:sum worker_id search in Invoices Shopping_list-price
-  - [ ] 购买新手机最多：count max customs_id search Invoices Shopping_list Item(new phone)-quantity
+  - [x] 总销售额:sum worker_id search in Invoices Shopping_list-price
+  - [x] 购买新手机最多：count max customs_id search Invoices Shopping_list Item(new phone)-quantity
 
 
-- [ ] 把功能套用到tkinter界面上
+- [ ] 把功能套用到tkinter界面上(正在进行,全力赶在这周末内完成)
 
 
 ### 遇到的问题

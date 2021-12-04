@@ -33,11 +33,11 @@ c.executescript('''
 
     INSERT INTO Workers (worker_id,worker_name,manager_id,total_sales)
     VALUES
-        (1,'Gima Masaru',1,100),
-        (2,'Sakura Gen',2,100),
-        (3,'Kite Jean',3,100),
-        (4,'Yabi Osamatsu',4,100),
-        (5,'Linda Armstrong',5,100);
+        (1,'Gima Masaru',1,9375104),
+        (2,'Sakura Gen',2,3732616),
+        (3,'Kite Jean',3,2691185),
+        (4,'Yabi Osamatsu',4,2327557),
+        (5,'Linda Armstrong',5,1976257);
 
 
     INSERT INTO Warehouses(warehouse_id,city_id,agent_id,item_id,item_name,stock_item_quantity)

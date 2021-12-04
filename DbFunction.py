@@ -122,13 +122,13 @@ def show_the_best_agent():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
     sql='''
-    SELECT agent_id, agent_name
+    SELECT agent_id, agent_name, total_sales
     FROM Agents
     ORDER BY total_sales DESC LIMIT 1
     '''
     c.execute(sql)
     item = c.fetchall()
-    print("(),"+str(item))
+    print("The Best Agent is: "+str(item))
     conn.commit()
     conn.close()
 
@@ -136,12 +136,12 @@ def show_the_best_worker():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
     sql='''
-    SELECT worker_id, worker_name
+    SELECT worker_id, worker_name, total_sales
     FROM Workers
     ORDER BY total_sales DESC LIMIT 1
     '''
     c.execute(sql)
     item = c.fetchall()
-    print("(),"+str(item))
+    print("The Best Worker is: "+str(item))
     conn.commit()
     conn.close()

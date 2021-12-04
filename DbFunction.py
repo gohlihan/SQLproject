@@ -118,30 +118,67 @@ def show_newphone_customer():
     conn.close()
 
 
-def show_the_best_agent():
+def show_worker_sales():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
     sql='''
-    SELECT agent_id, agent_name, total_sales
-    FROM Agents
-    ORDER BY total_sales DESC LIMIT 1
+    SELECT w.worker_id, w.worker_name, SUM(i.total_price) AS totalsale
+    FROM Workers w, Invoices i
+    WHERE i.worker_id = w.worker_id
+    GROUP BY w.worker_id, w.worker_name
     '''
     c.execute(sql)
     item = c.fetchall()
-    print("The Best Agent is: "+str(item))
+    print(item)
     conn.commit()
     conn.close()
+
 
 def show_the_best_worker():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
     sql='''
-    SELECT worker_id, worker_name, total_sales
-    FROM Workers
-    ORDER BY total_sales DESC LIMIT 1
+    SELECT worker_id,worker_name,MAX(totalsale)
+    FROM (SELECT w.worker_id, w.worker_name, SUM(i.total_price) AS totalsale
+    FROM Workers w, Invoices i
+    WHERE i.worker_id = w.worker_id
+    GROUP BY w.worker_id, w.worker_name)
     '''
     c.execute(sql)
     item = c.fetchall()
     print("The Best Worker is: "+str(item))
+    conn.commit()
+    conn.close()
+
+
+def show_agent_sales():
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT a.agent_id, a.agent_name, SUM(i.total_price) AS totalsale
+    FROM Workers w, Invoices i, Agents a, Managers m
+    WHERE i.worker_id = w.worker_id AND w.manager_id = m.manager_id AND m.agent_id = a.agent_id
+    GROUP BY a.agent_id, a.agent_name
+    '''
+    c.execute(sql)
+    item = c.fetchall()
+    print(item)
+    conn.commit()
+    conn.close()
+
+
+def show_the_best_agent():
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT agent_id,agent_name,MAX(totalsale)
+    FROM (SELECT a.agent_id, a.agent_name, SUM(i.total_price) AS totalsale
+    FROM Workers w, Invoices i, Agents a, Managers m
+    WHERE i.worker_id = w.worker_id AND w.manager_id = m.manager_id AND m.agent_id = a.agent_id
+    GROUP BY a.agent_id, a.agent_name)
+    '''
+    c.execute(sql)
+    item = c.fetchall()
+    print("The Best Agent is: "+str(item))
     conn.commit()
     conn.close()

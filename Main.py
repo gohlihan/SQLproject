@@ -28,3 +28,9 @@ from tkinter import *
 #dbf.show_the_best_agent()
 
 #dbf.show_the_best_worker()
+
+#dbf.show_worker_sales()
+
+#dbf.show_agent_sales()
+
+#dbf.show_the_best_agent()

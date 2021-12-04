@@ -70,6 +70,7 @@ c.executescript('''
     CREATE TABLE Invoices (
     invoice_id integer PRIMARY KEY,
     invoice_date text,
+    worker_id integer,
     customer_id integer,
     shopping_list_id integer,
     total_price integer,
@@ -79,7 +80,8 @@ c.executescript('''
     FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
     FOREIGN KEY (shopping_list_id) REFERENCES Shopping_lists (shopping_list_id),
     FOREIGN KEY (city_id) REFERENCES Cities(city_id),
-    FOREIGN KEY (driver_id) REFERENCES Drivers(driver_id)
+    FOREIGN KEY (driver_id) REFERENCES Drivers(driver_id),
+    FOREIGN KEY (worker_id) REFERENCES Workers(worker_id)
 );
 
     CREATE TABLE Drivers (

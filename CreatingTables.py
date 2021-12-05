@@ -27,7 +27,6 @@ c.executescript('''
     worker_id integer PRIMARY KEY,
     worker_name text,
     manager_id integer,
-    total_sales integer,
     FOREIGN KEY (manager_id) REFERENCES Managers (manager_id)
 );
 

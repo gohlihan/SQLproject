@@ -31,13 +31,13 @@ c.executescript('''
         (5,'Uyeda Tomoko',5);
 
 
-    INSERT INTO Workers (worker_id,worker_name,manager_id,total_sales)
+    INSERT INTO Workers (worker_id,worker_name,manager_id)
     VALUES
-        (1,'Gima Masaru',1,12000),
-        (2,'Sakura Gen',2,6000),
-        (3,'Kite Jean',3,3000),
-        (4,'Yabi Osamatsu',4,4000),
-        (5,'Linda Armstrong',5,6000);
+        (1,'Gima Masaru',1),
+        (2,'Sakura Gen',2),
+        (3,'Kite Jean',3),
+        (4,'Yabi Osamatsu',4),
+        (5,'Linda Armstrong',5);
 
 
     INSERT INTO Warehouses(warehouse_id,city_id,agent_id,item_id,item_name,stock_item_quantity)

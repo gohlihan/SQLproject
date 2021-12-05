@@ -1,32 +1,9 @@
-import DbFunction as dbf
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 import sqlite3
 
-#----------Main functions--------------------
-
-    #dbf.show_warehouse_inv(1)
-
-    #dbf.show_all_warehouse_inv()
-
-    #dbf.change_warehouse_inv(99,1)
-
-    #dbf.change_invoice_city(5,3)
-
-    #dbf.create_invoice(invoice_id,invoice_date,customer_id,shopping_list_id,total_price,city_id,driver_id,shipping_status)
-
-    #dbf.show_customer_totalbuy()
-
-    #dbf.show_newphone_customer()
-
-    #dbf.show_the_best_agent()
-
-    #dbf.show_the_best_worker()
-
-    #dbf.show_worker_sales()
-
-    #dbf.show_agent_sales()
+from DbFunction import show_the_best_worker
 
 #-----------Tkinter Setup---------------------------
 root = tk.Tk()
@@ -92,6 +69,7 @@ def View_invoice():
     data_frame_warehouse.pack_forget()
     warehouse_modify_button_frame.pack_forget()
     agent_button_frame.pack_forget()
+    worker_button_frame.pack_forget()
     # Pack
     data_frame_inv.pack(fill="x", expand="yes", padx=20)
     inv_modify_button_frame.pack(fill="x", expand="yes", padx=20)
@@ -147,6 +125,7 @@ def View_warehouse():
     data_frame_inv.pack_forget()
     inv_modify_button_frame.pack_forget()
     agent_button_frame.pack_forget()
+    worker_button_frame.pack_forget()
 
     # Pack Self element
     data_frame_warehouse.pack(fill="x", expand="yes", padx=20)
@@ -202,6 +181,7 @@ def View_agent():
     inv_modify_button_frame.pack_forget()
     data_frame_warehouse.pack_forget()
     warehouse_modify_button_frame.pack_forget()
+    worker_button_frame.pack_forget()
 
     # Pack Self element
     agent_button_frame.pack(fill="x", expand="yes", padx=20)
@@ -277,7 +257,81 @@ def show_the_worst_agent():
     conn.commit()
     conn.close()
     
+# view all workers
+def View_worker():
+    remove_all()
+    # Unpack other element
+    data_frame_inv.pack_forget()
+    inv_modify_button_frame.pack_forget()
+    data_frame_warehouse.pack_forget()
+    warehouse_modify_button_frame.pack_forget()
+    agent_button_frame.pack_forget()
 
+    # Pack Self element
+    worker_button_frame.pack(fill="x", expand="yes", padx=20)
+
+    # Define Columns
+    my_tree['columns'] = ("Worker Id","Worker Name", "Manager Id")
+
+    # Format Columns
+    my_tree.column("#0", width=0, stretch=NO)
+    my_tree.column("Worker Id", anchor=W, width=200)
+    my_tree.column("Worker Name", anchor=W, width=200)
+    my_tree.column("Manager Id", anchor=W, width=200)
+
+    # Create Headings
+    my_tree.heading("#0", text="", anchor=W)
+    my_tree.heading("Worker Id", text="Worker Id",anchor=W)
+    my_tree.heading("Worker Name",text="Worker Name", anchor=W)
+    my_tree.heading("Manager Id",text="Manager Id", anchor=W)
+
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT *
+    FROM Workers
+    '''
+    c.execute(sql)
+    item = c.fetchall()
+    for row in item:
+        #print(row) # it print all records in the database
+        my_tree.insert("", tk.END, values=row)
+    conn.commit()
+    conn.close()
+
+def show_the_best_worker():
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT worker_id,worker_name,MAX(totalsale)
+    FROM (SELECT w.worker_id, w.worker_name, SUM(i.total_price) AS totalsale
+    FROM Workers w, Invoices i
+    WHERE i.worker_id = w.worker_id
+    GROUP BY w.worker_id, w.worker_name)
+    '''
+    c.execute(sql)
+    the_best_worker = c.fetchall()
+    bw_label = Label(worker_button_frame, text="The Best Worker Is: \n\n"+str(the_best_worker))
+    bw_label.grid(row=0, column=0, padx=10, pady=10)
+    conn.commit()
+    conn.close()
+
+def show_the_worst_worker():
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT worker_id,worker_name,MIN(totalsale)
+    FROM (SELECT w.worker_id, w.worker_name, SUM(i.total_price) AS totalsale
+    FROM Workers w, Invoices i
+    WHERE i.worker_id = w.worker_id
+    GROUP BY w.worker_id, w.worker_name)
+    '''
+    c.execute(sql)
+    the_worst_worker = c.fetchall()
+    w_label = Label(worker_button_frame, text="The Worst Worker Is: \n\n"+str(the_worst_worker))
+    w_label.grid(row=0, column=1, padx=10, pady=10)
+    conn.commit()
+    conn.close()
 ############################ Commands Buttons ####################################
 
 # Buttons Frame
@@ -293,6 +347,9 @@ show_warehouse_button.grid(row=0, column=1, padx=10, pady=10)
 
 show_agent_button = Button(button_frame, text="View Agents", command=View_agent)
 show_agent_button.grid(row=0, column=2, padx=10, pady=10)
+
+show_worker_button = Button(button_frame, text="View Workers", command=View_worker)
+show_worker_button.grid(row=0, column=3, padx=10, pady=10)
 
 ############################# Invoice Input Data Frame #############################
 
@@ -402,13 +459,29 @@ agent_button_frame = LabelFrame(root, text="Agent Advanced Filter")
 #agent_button_frame.pack(fill="x", expand="yes", padx=20)
 
 # Add Buttons and Labels
-#Entry(agent_button_frame, text=()).grid(row=0, column=0, padx=10, pady=10)
+show_best_button = Button(agent_button_frame, text="Show the Best Agent",command=show_the_best_agent)
+show_best_button.grid(row=1, column=0, padx=10, pady=10)
 
-select_record_button = Button(agent_button_frame, text="Show the Best Agent",command=show_the_best_agent)
-select_record_button.grid(row=1, column=0, padx=10, pady=10)
+show_worst_button = Button(agent_button_frame, text="Show the Worst Agent",command=show_the_worst_agent)
+show_worst_button.grid(row=1, column=1, padx=10, pady=10)
 
-update_button = Button(agent_button_frame, text="Show the Worst Agent",command=show_the_worst_agent)
-update_button.grid(row=1, column=1, padx=10, pady=10)
+
+############################ Worker Advanced Filter Buttons ####################################
+
+# Buttons Frame
+worker_button_frame = LabelFrame(root, text="Worker Advanced Filter")
+#worker_button_frame.pack(fill="x", expand="yes", padx=20)
+
+# Add Buttons and Labels
+show_best_button = Button(worker_button_frame, text="Show the Best Worker",command=show_the_best_worker)
+show_best_button.grid(row=1, column=0, padx=10, pady=10)
+
+show_worst_button = Button(worker_button_frame, text="Show the Worst Worker",command=show_the_worst_worker)
+show_worst_button.grid(row=1, column=1, padx=10, pady=10)
+
+
+
+
 
 
 View_invoice()

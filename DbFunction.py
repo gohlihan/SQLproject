@@ -182,3 +182,29 @@ def show_the_best_agent():
     print("The Best Agent is: "+str(item))
     conn.commit()
     conn.close()
+
+
+
+#----------Main functions--------------------
+
+#show_warehouse_inv(1)
+
+#show_all_warehouse_inv()
+
+#change_warehouse_inv(99,1)
+
+#change_invoice_city(5,3)
+
+#create_invoice(invoice_id,invoice_date,customer_id,shopping_list_id,total_price,city_id,driver_id,shipping_status)
+
+#show_customer_totalbuy()
+
+#show_newphone_customer()
+
+#show_the_best_agent()
+
+#show_the_best_worker()
+
+#show_worker_sales()
+
+#show_agent_sales()

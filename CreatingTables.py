@@ -13,7 +13,6 @@ c.executescript('''
     agent_id integer PRIMARY KEY,
     agent_name text,
     city_id integer,
-    total_sales integer,
     FOREIGN KEY (city_id) REFERENCES Cities (city_id)
 );
 
@@ -33,7 +32,8 @@ c.executescript('''
 );
 
     CREATE TABLE Warehouses (
-    warehouse_id integer PRIMARY KEY,
+    stock_list_id integer PRIMARY KEY AUTOINCREMENT,
+    warehouse_id integer,
     city_id integer,
     agent_id integer,
     item_id integer,
@@ -59,7 +59,7 @@ c.executescript('''
 );
 
     CREATE TABLE Customers (
-    customer_id integer PRIMARY KEY ,
+    customer_id integer PRIMARY KEY AUTOINCREMENT,
     customer_name text,
     city_id integer,
     invoice_id integer,
@@ -68,7 +68,7 @@ c.executescript('''
 );
 
     CREATE TABLE Invoices (
-    invoice_id integer PRIMARY KEY,
+    invoice_id integer PRIMARY KEY AUTOINCREMENT,
     invoice_date text,
     worker_id integer,
     customer_id integer,

@@ -6,10 +6,28 @@ Project Requirements:
 ![picture 3](./attachment/2021-1118-120723.png)
 
 
+## Our Group Member and Contribution 
+1. **GOH LI HAN, 2018059078**
+   - Manage project roadmap
+   - Database Design and Quary
+   - User Interface and functions
+   - Project document
+2. **LAI MINGYI, 2018054619**
+   - Database Design and Quary
+   - User Interface and functions
+   - Project document
+3. **YE HAIPING, 2018054615**
+   - Database Design and Quary
+   - User Interface and functions
+   - Project document and PowerPoint
+
+
 ## How to Run this project
 1. Download project file from [Here](https://github.com/gohlihan/SQLproject)
 2. Open the project folder.
 3. Run [Main.py](Main.py) in your python terminal.
+
+
 ## File Descriptions
 ### Main File
 1. [Main.py](Main.py) All the functions are here, Run this file in ternminal.
@@ -31,12 +49,23 @@ https://www.pythontutorial.net/tkinter/
 
 ## Project Plan  
 
+**Languages we use:** Python, SQLite
+
+**Tools we use:** 
+  1. SQLite3 from python (database)
+  2. Tkinter from python (GUI)
+  3. DBeaver (to test our quary)
+  4. Visual Studio Code, PyCharm
+  5. Github (for version control and collaboration)
+
 Use Python and SQLite to create the database and functions,
 Then we use Tkinter(a plugin from Python) to create the User Interface.
 
 After that we can interact with the databse by clicking the buttons in GUI.
 
 We use SQLite because it is serverless, convenient to use without install or setup anything, and also easy to build quary than others.
+
+We also use Github for idea exchange and code collaboration, and most importantly, we use it for version control during development.
 
 ## Progress
 - [x] Setup Github repository (18-11-2021)

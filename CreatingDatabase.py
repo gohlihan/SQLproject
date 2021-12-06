@@ -95,3 +95,5 @@ c.executescript('''
 
 conn.commit()
 conn.close()
+
+print("Database 'system.db' Created.")

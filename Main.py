@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import sqlite3
 
 from DbFunction import show_the_best_worker
@@ -540,7 +541,7 @@ inv_shipment_entry.grid(row=2, column=1, padx=10, pady=10)
 
 ############################ Invoice Modify Buttons ####################################
 
-def select_record():
+def select_inv_record():
     # Clear textbox
     inv_id_entry.delete(0, END)
     inv_date_entry.delete(0, END)
@@ -568,25 +569,92 @@ def select_record():
     inv_deliverid_entry.insert(0, values[7])
     inv_shipment_entry.insert(0, values[8])
 
-def update_record():
+def update_inv_record():
     selected = my_tree.focus()
     my_tree.item(selected, text="",values=(inv_id_entry.get(), inv_date_entry.get(), inv_workerid_entry.get(), inv_customerid_entry.get(), inv_shoplistid_entry.get(), inv_totalp_entry.get(), inv_cityid_entry.get(), inv_deliverid_entry.get(), inv_shipment_entry.get()))
+
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    
+    c.execute('''
+    UPDATE Invoices SET
+    invoice_date = :invoice_date,
+    worker_id = :worker_id,
+    customer_id = :customer_id,
+    shopping_list_id = :shopping_list_id,
+    total_price = :total_price,
+    city_id = :city_id,
+    driver_id = :driver_id,
+    shipping_status = :shipping_status
+    WHERE invoice_id = :invoice_id
+    ''',
+    {
+        'invoice_date': inv_date_entry.get(),
+        'worker_id': inv_workerid_entry.get(),
+        'customer_id': inv_customerid_entry.get(),
+        'shopping_list_id': inv_shoplistid_entry.get(),
+        'total_price': inv_totalp_entry.get(),
+        'city_id': inv_cityid_entry.get(),
+        'driver_id': inv_deliverid_entry.get(),
+        'shipping_status': inv_shipment_entry.get(),
+        'invoice_id': inv_id_entry.get(),
+    })
+    conn.commit()
+    conn.close()
+    messagebox.showinfo("Info", "Invoice Update Successful")
+
+def add_inv_record():
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    
+    c.execute('INSERT INTO Invoices VALUES (:invoice_id,:invoice_date,:worker_id,:customer_id,:shopping_list_id,:total_price,:city_id,:driver_id,:shipping_status)',
+    {
+        'invoice_id': inv_id_entry.get(),
+        'invoice_date': inv_date_entry.get(),
+        'worker_id': inv_workerid_entry.get(),
+        'customer_id': inv_customerid_entry.get(),
+        'shopping_list_id': inv_shoplistid_entry.get(),
+        'total_price': inv_totalp_entry.get(),
+        'city_id': inv_cityid_entry.get(),
+        'driver_id': inv_deliverid_entry.get(),
+        'shipping_status': inv_shipment_entry.get(),
+    })
+    conn.commit()
+    conn.close()
+    remove_all()
+    View_invoice()
+    messagebox.showinfo("Info", "New Invoice Added")
+
+def remove_inv_record():
+    x = my_tree.selection()[0]
+    my_tree.delete(x)
+
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    
+    c.execute('DELETE FROM Invoices WHERE invoice_id=' + inv_id_entry.get())
+    conn.commit()
+    conn.close()
+    remove_all()
+    View_invoice()
+    messagebox.showinfo("Info", "Invoice Deleted")
+
 
 # Buttons Frame
 inv_modify_button_frame = LabelFrame(root, text="Invoice Modify")
 #inv_modify_button_frame.pack(fill="x", expand="yes", padx=20)
 
 # Add Buttons
-select_record_button = Button(inv_modify_button_frame, text="Select Record",command=select_record)
+select_record_button = Button(inv_modify_button_frame, text="Select Record",command=select_inv_record)
 select_record_button.grid(row=0, column=0, padx=10, pady=10)
 
-update_button = Button(inv_modify_button_frame, text="Update Record", command=update_record)
+update_button = Button(inv_modify_button_frame, text="Update Record", command=update_inv_record)
 update_button.grid(row=0, column=1, padx=10, pady=10)
 
-add_button = Button(inv_modify_button_frame, text="Add Record")
+add_button = Button(inv_modify_button_frame, text="Add Record", command=add_inv_record)
 add_button.grid(row=0, column=2, padx=10, pady=10)
 
-remove_one_button = Button(inv_modify_button_frame, text="Remove Selected")
+remove_one_button = Button(inv_modify_button_frame, text="Remove Selected", command=remove_inv_record)
 remove_one_button.grid(row=0, column=3, padx=10, pady=10)
 
 
@@ -595,33 +663,149 @@ remove_one_button.grid(row=0, column=3, padx=10, pady=10)
 data_frame_warehouse = LabelFrame(root, text="Record")
 #data_frame_warehouse.pack(fill="x", expand="yes", padx=20)
 
+warehouse_stocklist_id_label = Label(data_frame_warehouse, text="Stock List Id")
+warehouse_stocklist_id_label.grid(row=0, column=0, padx=10, pady=10)
+warehouse_stocklist_id_entry = Entry(data_frame_warehouse)
+warehouse_stocklist_id_entry.grid(row=0, column=1, padx=10, pady=10)
+
+warehouse_id_label = Label(data_frame_warehouse, text="Warehouse Id")
+warehouse_id_label.grid(row=0, column=2, padx=10, pady=10)
+warehouse_id_entry = Entry(data_frame_warehouse)
+warehouse_id_entry.grid(row=0, column=3, padx=10, pady=10)
+
+warehouse_city_id_label = Label(data_frame_warehouse, text="City Id")
+warehouse_city_id_label.grid(row=0, column=4, padx=10, pady=10)
+warehouse_city_id_entry = Entry(data_frame_warehouse)
+warehouse_city_id_entry.grid(row=0, column=5, padx=10, pady=10)
+
+warehouse_agent_id_label = Label(data_frame_warehouse, text="Agent Id")
+warehouse_agent_id_label.grid(row=0, column=6, padx=10, pady=10)
+warehouse_agent_id_entry = Entry(data_frame_warehouse)
+warehouse_agent_id_entry.grid(row=0, column=7, padx=10, pady=10)
+
 warehouse_item_id_label = Label(data_frame_warehouse, text="Item Id")
-warehouse_item_id_label.grid(row=0, column=0, padx=10, pady=10)
+warehouse_item_id_label.grid(row=1, column=0, padx=10, pady=10)
 warehouse_item_id_entry = Entry(data_frame_warehouse)
-warehouse_item_id_entry.grid(row=0, column=1, padx=10, pady=10)
+warehouse_item_id_entry.grid(row=1, column=1, padx=10, pady=10)
 
 warehouse_item_name_label = Label(data_frame_warehouse, text="Item Name")
-warehouse_item_name_label.grid(row=0, column=2, padx=10, pady=10)
+warehouse_item_name_label.grid(row=1, column=2, padx=10, pady=10)
 warehouse_item_name_entry = Entry(data_frame_warehouse)
-warehouse_item_name_entry.grid(row=0, column=3, padx=10, pady=10)
+warehouse_item_name_entry.grid(row=1, column=3, padx=10, pady=10)
 
 warehouse_item_quant_label = Label(data_frame_warehouse, text="Item Quantity")
-warehouse_item_quant_label.grid(row=0, column=4, padx=10, pady=10)
+warehouse_item_quant_label.grid(row=1, column=4, padx=10, pady=10)
 warehouse_item_quant_entry = Entry(data_frame_warehouse)
-warehouse_item_quant_entry.grid(row=0, column=5, padx=10, pady=10)
+warehouse_item_quant_entry.grid(row=1, column=5, padx=10, pady=10)
 
 ############################ Warehouse Modify Buttons ####################################
+
+def select_warehouse_record():
+    # Clear textbox
+    warehouse_stocklist_id_entry.delete(0, END)
+    warehouse_id_entry.delete(0, END)
+    warehouse_city_id_entry.delete(0, END)
+    warehouse_agent_id_entry.delete(0, END)
+    warehouse_item_id_entry.delete(0, END)
+    warehouse_item_name_entry.delete(0, END)
+    warehouse_item_quant_entry.delete(0, END)
+
+    # focus the selection
+    selected = my_tree.focus()
+
+    # Grab record values
+    values = my_tree.item(selected,'values')
+
+    # outpus to textbox
+    warehouse_stocklist_id_entry.insert(0, values[0])
+    warehouse_id_entry.insert(0, values[1])
+    warehouse_city_id_entry.insert(0, values[2])
+    warehouse_agent_id_entry.insert(0, values[3])
+    warehouse_item_id_entry.insert(0, values[4])
+    warehouse_item_name_entry.insert(0, values[5])
+    warehouse_item_quant_entry.insert(0, values[6])
+
+def update_warehouse_record():
+    selected = my_tree.focus()
+    my_tree.item(selected, text="",values=(warehouse_stocklist_id_entry.get(), warehouse_id_entry.get(), warehouse_city_id_entry.get(), warehouse_agent_id_entry.get(), warehouse_item_id_entry.get(), warehouse_item_name_entry.get(), warehouse_item_quant_entry.get()))
+
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    
+    c.execute('''
+    UPDATE Warehouses SET
+    warehouse_id = :warehouse_id,
+    city_id = :city_id,
+    agent_id = :agent_id,
+    item_id = :item_id,
+    item_name = :item_name,
+    stock_item_quantity = :stock_item_quantity
+    WHERE stock_list_id = :stock_list_id
+    ''',
+    {
+        'warehouse_id': warehouse_id_entry.get(),
+        'city_id': warehouse_city_id_entry.get(),
+        'agent_id': warehouse_agent_id_entry.get(),
+        'item_id': warehouse_item_id_entry.get(),
+        'item_name': warehouse_item_name_entry.get(),
+        'stock_item_quantity': warehouse_item_quant_entry.get(),
+        'stock_list_id': warehouse_stocklist_id_entry.get(),
+    })
+    conn.commit()
+    conn.close()
+    messagebox.showinfo("Info", "Warehouse Record Update Successful")
+
+def add_warehouse_record():
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    
+    c.execute('INSERT INTO Warehouses VALUES (:stock_list_id,:warehouse_id,:city_id,:agent_id,:item_id,:item_name,:stock_item_quantity)',
+    {
+        'stock_list_id': warehouse_stocklist_id_entry.get(),
+        'warehouse_id': warehouse_id_entry.get(),
+        'city_id': warehouse_city_id_entry.get(),
+        'agent_id': warehouse_agent_id_entry.get(),
+        'item_id': warehouse_item_id_entry.get(),
+        'item_name': warehouse_item_name_entry.get(),
+        'stock_item_quantity': warehouse_item_quant_entry.get(),
+    })
+    conn.commit()
+    conn.close()
+    remove_all()
+    View_warehouse()
+    messagebox.showinfo("Info", "New Warehouse Record Added")
+
+def remove_warehouse_record():
+    x = my_tree.selection()[0]
+    my_tree.delete(x)
+
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    
+    c.execute('DELETE FROM Warehouses WHERE stock_list_id=' + warehouse_stocklist_id_entry.get())
+    conn.commit()
+    conn.close()
+    remove_all()
+    View_warehouse()
+    messagebox.showinfo("Info", "Warehouse Record Deleted")
 
 # Buttons Frame
 warehouse_modify_button_frame = LabelFrame(root, text="Warehouse Stock Modify")
 #warehouse_modify_button_frame.pack(fill="x", expand="yes", padx=20)
 
 # Add Buttons
-select_record_button = Button(warehouse_modify_button_frame, text="Select Record")
+select_record_button = Button(warehouse_modify_button_frame, text="Select Record",command=select_warehouse_record)
 select_record_button.grid(row=0, column=0, padx=10, pady=10)
 
-update_button = Button(warehouse_modify_button_frame, text="Update Record")
+update_button = Button(warehouse_modify_button_frame, text="Update Record",command=update_warehouse_record)
 update_button.grid(row=0, column=1, padx=10, pady=10)
+
+add_button = Button(warehouse_modify_button_frame, text="Add Record",command=add_warehouse_record)
+add_button.grid(row=0, column=2, padx=10, pady=10)
+
+remove_one_button = Button(warehouse_modify_button_frame, text="Remove Selected",command=remove_warehouse_record)
+remove_one_button.grid(row=0, column=3, padx=10, pady=10)
+
 
 ############################ Agent Advanced Filter Buttons ####################################
 
@@ -671,14 +855,6 @@ driver_button_frame = LabelFrame(root, text="Driver Advanced Filter")
 show_best_button = Button(driver_button_frame, text="Show Most Active Driver",command=show_active_driver)
 show_best_button.grid(row=1, column=0, padx=10, pady=10)
 
-
-
-
-
-
-
-
 View_invoice()
-
 
 root.mainloop()

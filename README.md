@@ -1,65 +1,55 @@
 # SQLproject
-管理信息-小组期末作业
+Management Information Systems - Group Project 
 
 ![picture 3](/attachment/2021-1118-120723.png)  
 
 
-## 文件说明
-[Main.py](Main.py)主要的功能写在这里? tkinter我打算写在这边
+## File Descriptions
+### Main File
+1. [Main.py](Main.py) All the functions are here, Run this file in ternminal.
+2. [CreatingDatabase.py](CreatingDatabase.py) Create database with preset tables.
+3. [AddingData.py](/AddingData.py) Input the preset data to the database.
+4. [system.db](system.db) The database file created from [CreatingDatabase.py](CreatingDatabase.py), delete before you create a new database.
 
-[CreatingTables.py](CreatingTables.py)创建初始的tables
-[AddingData.py](/AddingData.py)是给数据库输入初始数据
+### Not Crucial File
+1. [DbFunction.py](DbFunction.py) We use to test our Python+SQLite functions
 
-[DbFunction.py](DbFunction.py)把Query写成python的function,然后套用去Main.py
-
-[system.db](system.db)是这次作业的主要数据库
-
-[testing.sql](testing.sql)是写[CreatingTables.py](CreatingTables.py)时候的草稿
-
-[Group project draft.sql](Group%20project%20draft.sql)是之前生成的MySQL, 用作参考
-
-### 参考的教程
+## Tutorial we reference
 https://www.sqlitetutorial.net/
 
 https://www.sqlitetutorial.net/sqlite-python/
 
 https://www.pythontutorial.net/tkinter/
 
-### 目前计划
+[Python GUI's With TKinter(#172-#178)](https://www.youtube.com/watch?v=G9seoA3Mv4Y&list=PLCC34OHNcOtoC6GglhF3ncJ5rLwQrLGnV&index=172)
 
-用python + SQLite 完成数据库,
-然后用tkinter制作GUI界面,
+## Project Plan  
 
-在GUI界面上可以按几个按钮就显示出老师要求的东西
+Use Python and SQLite to create the database and functions,
+Then we use Tkinter(a plugin from Python) to create the User Interface.
 
-### 进度
-- [x] 建立Table 
-- [x] 填入数据 (周末前完成数据填写以及总销售额计算方法确定)(手填100价格)
-- [x] 完成老师要求的Query功能(正在进行)
+After that we can interact with the databse by clicking the buttons in GUI.
+
+We use SQLite because it is serverless, convenient to use without install or setup anything, and also easy to build quary than others.
+
+## Progress
+- [x] Setup Github repository (18-11-2021)
+- [x] Creating Tables and Database (24-11-2021)
+- [x] Fill in the Data (26-11-2021)
+- [x] Complete the query to fulfill the requirents (04-12-2021)
+- [x] Make a GUI and bind all functions into it (06-12-2021)
+- [x] Test, Debug, Refine (06-12-2021)
+- [x] **Finished** (06-12-2021)
     
-**要求1**
-  - [x] 库存管理
-  - [ ] 显示销售量最好的员工和agent(正在进行)
+**Requirement 1**
+  - [x] Warehouse can manage their stocks
+  - [x] Change the Invoice from A warehouse to B warehouse (changing the warehouse id or city id)
+  - [x] Able to create new invoices (making sales)
+  - [x] Able to manage delivery process (changing the delivery status)
 
 
-**要求2**
-  - [x] 总销售额:sum worker_id search in Invoices Shopping_list-price
-  - [x] 购买新手机最多：count max customs_id search Invoices Shopping_list Item(new phone)-quantity
-
-
-- [ ] 把功能套用到tkinter界面上(全力赶在这周末内完成)
-- [ ] 需要 PPT 和 报告,报告的格式还没问助教
-
-
-### 遇到的问题
-关于销售人员的销售额, 应该直接输入一个销售数据,
-还是应该是直接用Query的方法来统计销售额?
-
-总销售额:sum worker_id search in Invoices Shopping_list-price(手填)
-购买新手机最多：count max customs_id search Invoices Shopping_list Item(new phone)-quantity
-
-第一题的做后一句要求的好像是要物流状态?
-manage the delivery process(手动输入运输状态,0=未发货,1=正在途中,2=已收货)
-
-
-### Change Log
+**Requirement 2**
+  - [x] Show the Best active agents and their sales result
+  - [x] Show the Best active workers and their sales result
+  - [x] Who is the Top new phone buyer
+  - [x] Who is the Top active driver

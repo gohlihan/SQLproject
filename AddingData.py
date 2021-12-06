@@ -6,20 +6,20 @@ c = conn.cursor()
 c.executescript('''
     INSERT INTO Cities(city_id,city_name)
     VALUES
-        (1,'Tokyo'),
-        (2,'Yokohama'),
-        (3,'Osaka'),
-        (4,'Nagoya'),
-        (5,'Sapporo');
+        (1,'Hangzhou'),
+        (2,'Guilin'),
+        (3,'Qingdao'),
+        (4,'Dongguan'),
+        (5,'Chengdu');
 
 
     INSERT INTO Agents(agent_id,agent_name,city_id) 
     VALUES
-        (1,'Agent_Tokyo',1),
-        (2,'Agent_Yokohama',2),
-        (3,'Agent_Osaka',3),
-        (4,'Agent_Nagoya',4),
-        (5,'Agent_Sapporo',5);
+        (1,'Agent_Hangzhou',1),
+        (2,'Agent_Guilin',2),
+        (3,'Agent_Qingdao',3),
+        (4,'Agent_Dongguan',4),
+        (5,'Agent_Chengdu',5);
 
 
     INSERT INTO Managers(manager_id,manager_name,agent_id)

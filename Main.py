@@ -691,7 +691,7 @@ update_button.grid(row=0, column=1, padx=10, pady=10)
 add_button = Button(inv_modify_button_frame, text="Add Record", command=add_inv_record)
 add_button.grid(row=0, column=2, padx=10, pady=10)
 
-remove_one_button = Button(inv_modify_button_frame, text="Remove Selected", command=remove_inv_record)
+remove_one_button = Button(inv_modify_button_frame, text="Remove Selected Record", command=remove_inv_record)
 remove_one_button.grid(row=0, column=3, padx=10, pady=10)
 
 
@@ -840,7 +840,7 @@ update_button.grid(row=0, column=1, padx=10, pady=10)
 add_button = Button(warehouse_modify_button_frame, text="Add Record",command=add_warehouse_record)
 add_button.grid(row=0, column=2, padx=10, pady=10)
 
-remove_one_button = Button(warehouse_modify_button_frame, text="Remove Selected",command=remove_warehouse_record)
+remove_one_button = Button(warehouse_modify_button_frame, text="Remove Selected Record",command=remove_warehouse_record)
 remove_one_button.grid(row=0, column=3, padx=10, pady=10)
 
 

@@ -47,11 +47,11 @@ c.executescript('''
         (3,3,3,1,'NewPhone',30),
         (4,4,4,2,'OldPhone',40),
         (5,5,5,1,'NewPhone',50),
-        (1,1,1,1,'OldPhone',10),
-        (2,2,2,2,'NewPhone',20),
-        (3,3,3,1,'OldPhone',30),
-        (4,4,4,2,'NewPhone',40),
-        (5,5,5,1,'OldPhone',50);
+        (1,1,1,2,'OldPhone',10),
+        (2,2,2,1,'NewPhone',20),
+        (3,3,3,2,'OldPhone',30),
+        (4,4,4,1,'NewPhone',40),
+        (5,5,5,2,'OldPhone',50);
 
     
     INSERT INTO Items(item_id,item_name,item_price)

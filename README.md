@@ -1,14 +1,20 @@
 # SQLproject
-Management Information Systems - Group Project 
+Management Information Systems - Group Project (07-12-2021)
 
-![picture 3](/attachment/2021-1118-120723.png)  
+Project Requirements:
+
+![picture 3](./attachment/2021-1118-120723.png)
 
 
+## How to Run this project
+1. Download project file from [Here](https://github.com/gohlihan/SQLproject)
+2. Open the project folder.
+3. Run [Main.py](Main.py) in your python terminal.
 ## File Descriptions
 ### Main File
 1. [Main.py](Main.py) All the functions are here, Run this file in ternminal.
 2. [CreatingDatabase.py](CreatingDatabase.py) Create database with preset tables.
-3. [AddingData.py](/AddingData.py) Input the preset data to the database.
+3. [AddingData.py](AddingData.py) Input the preset data to the database.
 4. [system.db](system.db) The database file created from [CreatingDatabase.py](CreatingDatabase.py), delete before you create a new database.
 
 ### Not Crucial File
@@ -53,3 +59,11 @@ We use SQLite because it is serverless, convenient to use without install or set
   - [x] Show the Best active workers and their sales result
   - [x] Who is the Top new phone buyer
   - [x] Who is the Top active driver
+
+
+## Result
+Database ER Diagram
+![picture 1](./attachment/2021-1206-171359.png)  
+
+The GUI
+![picture 2](./attachment/2021-1206-171453.png)  

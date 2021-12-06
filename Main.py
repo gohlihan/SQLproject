@@ -400,6 +400,26 @@ def show_newphone_customer():
     top_label.grid(row=0, column=0, padx=10, pady=10)
     conn.commit()
     conn.close()
+def show_oldphone_customer(): 
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT id, name, MAX(Sum)
+    FROM 
+    (SELECT Customers.customer_id AS id, Customers.customer_name AS name, SUM(item_quantity) AS Sum
+    FROM Customers, Invoices, Shopping_lists
+    WHERE Customers.customer_id = Invoices.customer_id 
+    AND Invoices.shopping_list_id = Shopping_lists.shopping_list_id 
+    AND Shopping_lists.item_id = 2
+    GROUP BY Customers.customer_id)
+    '''
+    c.execute(sql)
+    top_oldphone_buyer= c.fetchall()
+    top_label = Label(customer_button_frame, text="Top Old Phone Buyer Is: \n\n"+str(top_oldphone_buyer))
+    top_label.grid(row=0, column=1, padx=10, pady=10)
+    conn.commit()
+    conn.close()
+
 
 # view all drivers
 def View_driver():
@@ -461,6 +481,23 @@ def show_active_driver():
     top_label.grid(row=0, column=0, padx=10, pady=10)
     conn.commit()
     conn.close()
+def show_nonactive_driver():
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT driver_id, driver_name, MIN(count)
+    FROM (SELECT d.driver_id, d.driver_name, COUNT(i.city_id) AS count
+    FROM Drivers d, Invoices i
+    WHERE d.driver_id = i.driver_id
+    GROUP BY d.driver_id, d.driver_name)
+    '''
+    c.execute(sql)
+    nontop_driver = c.fetchall()
+    top_label = Label(driver_button_frame, text="The Non Active Driver Is: \n\n"+str(nontop_driver))
+    top_label.grid(row=0, column=1, padx=10, pady=10)
+    conn.commit()
+    conn.close()
+
 
 ############################ Commands Buttons ####################################
 
@@ -844,6 +881,8 @@ customer_button_frame = LabelFrame(root, text="Customer Advanced Filter")
 show_best_button = Button(customer_button_frame, text="Show Top New Phone Buyer",command=show_newphone_customer)
 show_best_button.grid(row=1, column=0, padx=10, pady=10)
 
+show_worst_button = Button(customer_button_frame, text="Show Top Old Phone Buyer",command=show_oldphone_customer)
+show_worst_button.grid(row=1, column=1, padx=10, pady=10)
 
 ############################ Driver Advanced Filter Buttons ####################################
 
@@ -854,6 +893,9 @@ driver_button_frame = LabelFrame(root, text="Driver Advanced Filter")
 # Add Buttons and Labels
 show_best_button = Button(driver_button_frame, text="Show Most Active Driver",command=show_active_driver)
 show_best_button.grid(row=1, column=0, padx=10, pady=10)
+
+show_best_button = Button(driver_button_frame, text="Show Non Active Driver",command=show_nonactive_driver)
+show_best_button.grid(row=1, column=1, padx=10, pady=10)
 
 View_invoice()
 

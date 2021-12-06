@@ -1,6 +1,7 @@
 # Management Information Systems Group Project
 
-Date: 07-12-2021
+Group Project Report \
+Date: 06-12-2021
 
 ## Project Requirements:
 
@@ -26,16 +27,19 @@ Date: 07-12-2021
 ## How to run this project on your pc
 1. Download project file from [Here](https://github.com/gohlihan/SQLproject)
 2. Open the project folder.
-3. Run [Main.py](Main.py) in your python terminal.
+3. Run ```Main.py``` in your python terminal.
+
+\
+\
 ### File Descriptions
 #### Main File
-1. [Main.py](Main.py) All the functions are here, Run this file in ternminal.
-2. [CreatingDatabase.py](CreatingDatabase.py) Create database with preset tables.
-3. [AddingData.py](AddingData.py) Input the preset data to the database.
-4. [system.db](system.db) The database file created from [CreatingDatabase.py](CreatingDatabase.py), delete before you create a new database.
+1. ```Main.py``` All the functions are here, Run this file in ternminal.
+2. ```CreatingDatabase.py``` Create database with preset tables.
+3. ```AddingData.py``` Input the preset data to the database.
+4. ```system.db``` The database file created from ```CreatingDatabase.py```, delete before you create a new database.
 
 #### Not Crucial File
-5. [DbFunction.py](DbFunction.py) We use to test our Python+SQLite functions
+5. ```DbFunction.py``` We use to test our Python+SQLite functions
 
 
 ## Project Plan  
@@ -66,6 +70,9 @@ We also use Github for idea exchange and code collaboration, and most importantl
 - [x] Docs and PPT (06-12-2021)
 - [x] **Finished** (06-12-2021)
 
+\
+\
+\
 **Requirement 1**
   - [x] Warehouse can manage their stocks
   - [x] Command between warehouses(changing invoices location)
@@ -87,11 +94,11 @@ The GUI
 ![picture 2](./attachment/2021-1206-171453.png)  
 
 ## Tutorial we reference
-https://www.sqlitetutorial.net/
+[https://www.sqlitetutorial.net/](https://www.sqlitetutorial.net/)
 
-https://www.sqlitetutorial.net/sqlite-python/
+[https://www.sqlitetutorial.net/sqlite-python/](https://www.sqlitetutorial.net/sqlite-python/)
 
-https://www.pythontutorial.net/tkinter/
+[https://www.pythontutorial.net/tkinter/](https://www.pythontutorial.net/tkinter/)
 
 [Python GUI's With TKinter(#172-#178)](https://www.youtube.com/watch?v=G9seoA3Mv4Y&list=PLCC34OHNcOtoC6GglhF3ncJ5rLwQrLGnV&index=172)
 

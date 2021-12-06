@@ -101,22 +101,20 @@ def show_newphone_customer():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
     sql='''
-    SELECT id, name, Sum
+    SELECT id, name, MAX(Sum)
     FROM 
     (SELECT Customers.customer_id AS id, Customers.customer_name AS name, SUM(item_quantity) AS Sum
     FROM Customers, Invoices, Shopping_lists
     WHERE Customers.customer_id = Invoices.customer_id 
     AND Invoices.shopping_list_id = Shopping_lists.shopping_list_id 
     AND Shopping_lists.item_id = 1
-    GROUP BY Customers.customer_id) AS t
-    ORDER BY Sum DESC;
+    GROUP BY Customers.customer_id)
     '''
     c.execute(sql)
     item = c.fetchall()
     print("Show New Phone Customer: "+str(item))
     conn.commit()
     conn.close()
-
 
 def show_worker_sales():
     conn = sqlite3.connect("system.db")
@@ -183,7 +181,36 @@ def show_the_best_agent():
     conn.commit()
     conn.close()
 
+def show_driver_count():
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT d.driver_id, d.driver_name, COUNT(i.city_id) AS count
+    FROM Drivers d, Invoices i
+    WHERE d.driver_id = i.driver_id
+    GROUP BY d.driver_id, d.driver_name
+    '''
+    c.execute(sql)
+    item = c.fetchall()
+    print("Show Most active Driver: "+str(item))
+    conn.commit()
+    conn.close()
 
+def show_active_driver():
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT driver_id, driver_name, MAX(count)
+    FROM (SELECT d.driver_id, d.driver_name, COUNT(i.city_id) AS count
+    FROM Drivers d, Invoices i
+    WHERE d.driver_id = i.driver_id
+    GROUP BY d.driver_id, d.driver_name)
+    '''
+    c.execute(sql)
+    item = c.fetchall()
+    print("Show Most active Driver: "+str(item))
+    conn.commit()
+    conn.close()
 
 #----------Main functions--------------------
 
@@ -208,3 +235,7 @@ def show_the_best_agent():
 #show_worker_sales()
 
 #show_agent_sales()
+
+#show_driver_count()
+
+#show_active_driver()

@@ -70,6 +70,8 @@ def View_invoice():
     warehouse_modify_button_frame.pack_forget()
     agent_button_frame.pack_forget()
     worker_button_frame.pack_forget()
+    customer_button_frame.pack_forget()
+    driver_button_frame.pack_forget()
     # Pack
     data_frame_inv.pack(fill="x", expand="yes", padx=20)
     inv_modify_button_frame.pack(fill="x", expand="yes", padx=20)
@@ -112,9 +114,9 @@ def View_invoice():
     '''
     c.execute(sql)
     item = c.fetchall()
-    for row in item:
+    for invoice_row in item:
         #print(row) # it print all records in the database
-        my_tree.insert("", tk.END, values=row)
+        my_tree.insert("", tk.END, values=(invoice_row[0],invoice_row[1],invoice_row[2],invoice_row[3],invoice_row[4],invoice_row[5],invoice_row[6],invoice_row[7],invoice_row[8]))
     conn.commit()
     conn.close()
 
@@ -126,6 +128,8 @@ def View_warehouse():
     inv_modify_button_frame.pack_forget()
     agent_button_frame.pack_forget()
     worker_button_frame.pack_forget()
+    customer_button_frame.pack_forget()
+    driver_button_frame.pack_forget()
 
     # Pack Self element
     data_frame_warehouse.pack(fill="x", expand="yes", padx=20)
@@ -182,6 +186,8 @@ def View_agent():
     data_frame_warehouse.pack_forget()
     warehouse_modify_button_frame.pack_forget()
     worker_button_frame.pack_forget()
+    customer_button_frame.pack_forget()
+    driver_button_frame.pack_forget()
 
     # Pack Self element
     agent_button_frame.pack(fill="x", expand="yes", padx=20)
@@ -220,8 +226,6 @@ def View_agent():
         my_tree.insert("", tk.END, values=row)
     conn.commit()
     conn.close()
-
-#show the best agents
 def show_the_best_agent():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
@@ -238,8 +242,6 @@ def show_the_best_agent():
     b_label.grid(row=0, column=0, padx=10, pady=10)
     conn.commit()
     conn.close()
-    
-#show the best agents
 def show_the_worst_agent():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
@@ -256,7 +258,7 @@ def show_the_worst_agent():
     w_label.grid(row=0, column=1, padx=10, pady=10)
     conn.commit()
     conn.close()
-    
+
 # view all workers
 def View_worker():
     remove_all()
@@ -266,6 +268,8 @@ def View_worker():
     data_frame_warehouse.pack_forget()
     warehouse_modify_button_frame.pack_forget()
     agent_button_frame.pack_forget()
+    customer_button_frame.pack_forget()
+    driver_button_frame.pack_forget()
 
     # Pack Self element
     worker_button_frame.pack(fill="x", expand="yes", padx=20)
@@ -298,7 +302,6 @@ def View_worker():
         my_tree.insert("", tk.END, values=row)
     conn.commit()
     conn.close()
-
 def show_the_best_worker():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
@@ -315,7 +318,6 @@ def show_the_best_worker():
     bw_label.grid(row=0, column=0, padx=10, pady=10)
     conn.commit()
     conn.close()
-
 def show_the_worst_worker():
     conn = sqlite3.connect("system.db")
     c=conn.cursor()
@@ -332,6 +334,133 @@ def show_the_worst_worker():
     w_label.grid(row=0, column=1, padx=10, pady=10)
     conn.commit()
     conn.close()
+
+# view all customers
+def View_customer():
+    remove_all()
+    # Unpack other element
+    data_frame_inv.pack_forget()
+    inv_modify_button_frame.pack_forget()
+    data_frame_warehouse.pack_forget()
+    warehouse_modify_button_frame.pack_forget()
+    agent_button_frame.pack_forget()
+    worker_button_frame.pack_forget()
+    driver_button_frame.pack_forget()
+
+    # Pack Self element
+    customer_button_frame.pack(fill="x", expand="yes", padx=20)
+
+    # Define Columns
+    my_tree['columns'] = ("Customer Id","Customer Name", "City Id", "Invoice Id")
+
+    # Format Columns
+    my_tree.column("#0", width=0, stretch=NO)
+    my_tree.column("Customer Id", anchor=W, width=200)
+    my_tree.column("Customer Name", anchor=W, width=200)
+    my_tree.column("City Id", anchor=W, width=200)
+    my_tree.column("Invoice Id", anchor=W, width=200)
+
+    # Create Headings
+    my_tree.heading("#0", text="", anchor=W)
+    my_tree.heading("Customer Id", text="Customer Id",anchor=W)
+    my_tree.heading("Customer Name",text="Customer Name", anchor=W)
+    my_tree.heading("City Id",text="City Id", anchor=W)
+    my_tree.heading("Invoice Id",text="Invoice Id", anchor=W)
+
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT *
+    FROM Customers
+    '''
+    c.execute(sql)
+    item = c.fetchall()
+    for row in item:
+        #print(row) # it print all records in the database
+        my_tree.insert("", tk.END, values=row)
+    conn.commit()
+    conn.close()
+def show_newphone_customer(): 
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT id, name, MAX(Sum)
+    FROM 
+    (SELECT Customers.customer_id AS id, Customers.customer_name AS name, SUM(item_quantity) AS Sum
+    FROM Customers, Invoices, Shopping_lists
+    WHERE Customers.customer_id = Invoices.customer_id 
+    AND Invoices.shopping_list_id = Shopping_lists.shopping_list_id 
+    AND Shopping_lists.item_id = 1
+    GROUP BY Customers.customer_id)
+    '''
+    c.execute(sql)
+    top_newphone_buyer= c.fetchall()
+    top_label = Label(customer_button_frame, text="Top New Phone Buyer Is: \n\n"+str(top_newphone_buyer))
+    top_label.grid(row=0, column=0, padx=10, pady=10)
+    conn.commit()
+    conn.close()
+
+# view all drivers
+def View_driver():
+    remove_all()
+    # Unpack other element
+    data_frame_inv.pack_forget()
+    inv_modify_button_frame.pack_forget()
+    data_frame_warehouse.pack_forget()
+    warehouse_modify_button_frame.pack_forget()
+    agent_button_frame.pack_forget()
+    worker_button_frame.pack_forget()
+    customer_button_frame.pack_forget()
+
+    # Pack Self element
+    driver_button_frame.pack(fill="x", expand="yes", padx=20)
+
+    # Define Columns
+    my_tree['columns'] = ("Driver Id","Driver Name", "City Id")
+
+    # Format Columns
+    my_tree.column("#0", width=0, stretch=NO)
+    my_tree.column("Driver Id", anchor=W, width=200)
+    my_tree.column("Driver Name", anchor=W, width=200)
+    my_tree.column("City Id", anchor=W, width=200)
+
+    # Create Headings
+    my_tree.heading("#0", text="", anchor=W)
+    my_tree.heading("Driver Id", text="Driver Id",anchor=W)
+    my_tree.heading("Driver Name",text="Driver Name", anchor=W)
+    my_tree.heading("City Id",text="City Id", anchor=W)
+
+
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT *
+    FROM Drivers
+    '''
+    c.execute(sql)
+    item = c.fetchall()
+    for row in item:
+        #print(row) # it print all records in the database
+        my_tree.insert("", tk.END, values=row)
+    conn.commit()
+    conn.close()
+def show_active_driver():
+    conn = sqlite3.connect("system.db")
+    c=conn.cursor()
+    sql='''
+    SELECT driver_id, driver_name, MAX(count)
+    FROM (SELECT d.driver_id, d.driver_name, COUNT(i.city_id) AS count
+    FROM Drivers d, Invoices i
+    WHERE d.driver_id = i.driver_id
+    GROUP BY d.driver_id, d.driver_name)
+    '''
+    c.execute(sql)
+    top_driver = c.fetchall()
+    top_label = Label(driver_button_frame, text="The Most Active Driver Is: \n\n"+str(top_driver))
+    top_label.grid(row=0, column=0, padx=10, pady=10)
+    conn.commit()
+    conn.close()
+
 ############################ Commands Buttons ####################################
 
 # Buttons Frame
@@ -351,64 +480,107 @@ show_agent_button.grid(row=0, column=2, padx=10, pady=10)
 show_worker_button = Button(button_frame, text="View Workers", command=View_worker)
 show_worker_button.grid(row=0, column=3, padx=10, pady=10)
 
+show_customer_button = Button(button_frame, text="View Customers", command=View_customer)
+show_customer_button.grid(row=0, column=4, padx=10, pady=10)
+
+show_driver_button = Button(button_frame, text="View Drivers", command=View_driver)
+show_driver_button.grid(row=0, column=5, padx=10, pady=10)
+
 ############################# Invoice Input Data Frame #############################
 
 # Add Record Entry Boxes
 data_frame_inv = LabelFrame(root, text="Record")
 #data_frame_inv.pack(fill="x", expand="yes", padx=20)
 
+inv_id_label = Label(data_frame_inv, text="Invoice Id")
+inv_id_label.grid(row=0, column=0, padx=10, pady=10)
+inv_id_entry = Entry(data_frame_inv)
+inv_id_entry.grid(row=0, column=1, padx=10, pady=10)
+
 inv_date_label = Label(data_frame_inv, text="Invoice Date")
-inv_date_label.grid(row=0, column=0, padx=10, pady=10)
+inv_date_label.grid(row=0, column=2, padx=10, pady=10)
 inv_date_entry = Entry(data_frame_inv)
-inv_date_entry.grid(row=0, column=1, padx=10, pady=10)
+inv_date_entry.grid(row=0, column=3, padx=10, pady=10)
 
 inv_workerid_label = Label(data_frame_inv, text="Worker Id")
-inv_workerid_label.grid(row=0, column=2, padx=10, pady=10)
+inv_workerid_label.grid(row=0, column=4, padx=10, pady=10)
 inv_workerid_entry = Entry(data_frame_inv)
-inv_workerid_entry.grid(row=0, column=3, padx=10, pady=10)
+inv_workerid_entry.grid(row=0, column=5, padx=10, pady=10)
 
 inv_customerid_label = Label(data_frame_inv, text="Customer Id")
-inv_customerid_label.grid(row=0, column=4, padx=10, pady=10)
+inv_customerid_label.grid(row=0, column=6, padx=10, pady=10)
 inv_customerid_entry = Entry(data_frame_inv)
-inv_customerid_entry.grid(row=0, column=5, padx=10, pady=10)
+inv_customerid_entry.grid(row=0, column=7, padx=10, pady=10)
 
 inv_shoplistid_label = Label(data_frame_inv, text="Shopping list Id")
-inv_shoplistid_label.grid(row=0, column=6, padx=10, pady=10)
+inv_shoplistid_label.grid(row=1, column=0, padx=10, pady=10)
 inv_shoplistid_entry = Entry(data_frame_inv)
-inv_shoplistid_entry.grid(row=0, column=7, padx=10, pady=10)
+inv_shoplistid_entry.grid(row=1, column=1, padx=10, pady=10)
 
 inv_totalp_label = Label(data_frame_inv, text="Total Price")
-inv_totalp_label.grid(row=1, column=0, padx=10, pady=10)
+inv_totalp_label.grid(row=1, column=2, padx=10, pady=10)
 inv_totalp_entry = Entry(data_frame_inv)
-inv_totalp_entry.grid(row=1, column=1, padx=10, pady=10)
+inv_totalp_entry.grid(row=1, column=3, padx=10, pady=10)
 
 inv_cityid_label = Label(data_frame_inv, text="City Id")
-inv_cityid_label.grid(row=1, column=2, padx=10, pady=10)
+inv_cityid_label.grid(row=1, column=4, padx=10, pady=10)
 inv_cityid_entry = Entry(data_frame_inv)
-inv_cityid_entry.grid(row=1, column=3, padx=10, pady=10)
+inv_cityid_entry.grid(row=1, column=5, padx=10, pady=10)
 
 inv_deliverid_label = Label(data_frame_inv, text="Deliver Id")
-inv_deliverid_label.grid(row=1, column=4, padx=10, pady=10)
+inv_deliverid_label.grid(row=1, column=6, padx=10, pady=10)
 inv_deliverid_entry = Entry(data_frame_inv)
-inv_deliverid_entry.grid(row=1, column=5, padx=10, pady=10)
+inv_deliverid_entry.grid(row=1, column=7, padx=10, pady=10)
 
 inv_shipment_label = Label(data_frame_inv, text="Shipping Status")
-inv_shipment_label.grid(row=1, column=6, padx=10, pady=10)
+inv_shipment_label.grid(row=2, column=0, padx=10, pady=10)
 inv_shipment_entry = Entry(data_frame_inv)
-inv_shipment_entry.grid(row=1, column=7, padx=10, pady=10)
+inv_shipment_entry.grid(row=2, column=1, padx=10, pady=10)
 
 
 ############################ Invoice Modify Buttons ####################################
+
+def select_record():
+    # Clear textbox
+    inv_id_entry.delete(0, END)
+    inv_date_entry.delete(0, END)
+    inv_workerid_entry.delete(0, END)
+    inv_customerid_entry.delete(0, END)
+    inv_shoplistid_entry.delete(0, END)
+    inv_totalp_entry.delete(0, END)
+    inv_cityid_entry.delete(0, END)
+    inv_deliverid_entry.delete(0, END)
+    inv_shipment_entry.delete(0, END)
+    # focus the selection
+    selected = my_tree.focus()
+
+    # Grab record values
+    values = my_tree.item(selected,'values')
+
+    # outpus to textbox
+    inv_id_entry.insert(0, values[0])
+    inv_date_entry.insert(0, values[1])
+    inv_workerid_entry.insert(0, values[2])
+    inv_customerid_entry.insert(0, values[3])
+    inv_shoplistid_entry.insert(0, values[4])
+    inv_totalp_entry.insert(0, values[5])
+    inv_cityid_entry.insert(0, values[6])
+    inv_deliverid_entry.insert(0, values[7])
+    inv_shipment_entry.insert(0, values[8])
+
+def update_record():
+    selected = my_tree.focus()
+    my_tree.item(selected, text="",values=(inv_id_entry.get(), inv_date_entry.get(), inv_workerid_entry.get(), inv_customerid_entry.get(), inv_shoplistid_entry.get(), inv_totalp_entry.get(), inv_cityid_entry.get(), inv_deliverid_entry.get(), inv_shipment_entry.get()))
 
 # Buttons Frame
 inv_modify_button_frame = LabelFrame(root, text="Invoice Modify")
 #inv_modify_button_frame.pack(fill="x", expand="yes", padx=20)
 
 # Add Buttons
-select_record_button = Button(inv_modify_button_frame, text="Select Record")
+select_record_button = Button(inv_modify_button_frame, text="Select Record",command=select_record)
 select_record_button.grid(row=0, column=0, padx=10, pady=10)
 
-update_button = Button(inv_modify_button_frame, text="Update Record")
+update_button = Button(inv_modify_button_frame, text="Update Record", command=update_record)
 update_button.grid(row=0, column=1, padx=10, pady=10)
 
 add_button = Button(inv_modify_button_frame, text="Add Record")
@@ -416,7 +588,6 @@ add_button.grid(row=0, column=2, padx=10, pady=10)
 
 remove_one_button = Button(inv_modify_button_frame, text="Remove Selected")
 remove_one_button.grid(row=0, column=3, padx=10, pady=10)
-
 
 
 ############################ Warehouse Input data frame #########################
@@ -479,11 +650,35 @@ show_best_button.grid(row=1, column=0, padx=10, pady=10)
 show_worst_button = Button(worker_button_frame, text="Show the Worst Worker",command=show_the_worst_worker)
 show_worst_button.grid(row=1, column=1, padx=10, pady=10)
 
+############################ Customer Advanced Filter Buttons ####################################
+
+# Buttons Frame
+customer_button_frame = LabelFrame(root, text="Customer Advanced Filter")
+#customer_button_frame.pack(fill="x", expand="yes", padx=20)
+
+# Add Buttons and Labels
+show_best_button = Button(customer_button_frame, text="Show Top New Phone Buyer",command=show_newphone_customer)
+show_best_button.grid(row=1, column=0, padx=10, pady=10)
+
+
+############################ Driver Advanced Filter Buttons ####################################
+
+# Buttons Frame
+driver_button_frame = LabelFrame(root, text="Driver Advanced Filter")
+#driver_button_frame.pack(fill="x", expand="yes", padx=20)
+
+# Add Buttons and Labels
+show_best_button = Button(driver_button_frame, text="Show Most Active Driver",command=show_active_driver)
+show_best_button.grid(row=1, column=0, padx=10, pady=10)
+
+
+
 
 
 
 
 
 View_invoice()
+
 
 root.mainloop()

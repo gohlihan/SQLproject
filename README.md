@@ -9,16 +9,16 @@ Date: 06-12-2021
 
 
 ## Our Group Member and Contribution 
-1. **GOH LI HAN, 2018059078**
+1. **GOH ****, 2018059078**
    - Manage project roadmap
    - Database Design and Quary
    - User Interface and functions
    - Project document
-2. **LAI MINGYI, 2018054619**
+2. **LAI ****, 2018054619**
    - Database Design and Quary
    - User Interface and functions
    - Project document
-3. **YE HAIPING, 2018054615**
+3. **YE ****, 2018054615**
    - Database Design and Quary
    - User Interface and functions
    - Project document and PowerPoint
